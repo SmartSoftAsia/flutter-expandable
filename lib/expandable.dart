@@ -7,6 +7,7 @@ import 'dart:math' as math;
 class ExpandableThemeData {
   static final ExpandableThemeData defaults = ExpandableThemeData(
     iconColor: Colors.black54,
+    backgroudColor: Colors.white,
     useInkWell: true,
     inkWellBorderRadius: BorderRadius.zero,
     animationDuration: const Duration(milliseconds: 300),
@@ -33,6 +34,9 @@ class ExpandableThemeData {
 
   // Expand icon color.
   final Color iconColor;
+
+  // Expand backgroud color.
+  final Color backgroudColor;
 
   // If true then [InkWell] will be used in the header for a ripple effect.
   final bool useInkWell;
@@ -113,6 +117,7 @@ class ExpandableThemeData {
 
   const ExpandableThemeData({
     this.iconColor,
+    this.backgroudColor,
     this.useInkWell,
     this.animationDuration,
     this.scrollAnimationDuration,
@@ -146,8 +151,10 @@ class ExpandableThemeData {
     } else {
       return ExpandableThemeData(
         iconColor: theme.iconColor ?? defaults.iconColor,
+        backgroudColor: theme.backgroudColor ?? defaults.backgroudColor,
         useInkWell: theme.useInkWell ?? defaults.useInkWell,
-        inkWellBorderRadius: theme.inkWellBorderRadius ?? defaults.inkWellBorderRadius,
+        inkWellBorderRadius:
+            theme.inkWellBorderRadius ?? defaults.inkWellBorderRadius,
         animationDuration:
             theme.animationDuration ?? defaults.animationDuration,
         scrollAnimationDuration:
@@ -576,7 +583,12 @@ class ExpandablePanel extends StatelessWidget {
       }
 
       Widget wrapWithExpandableButton({Widget widget, bool wrap}) {
-        return wrap ? ExpandableButton(child: widget) : widget;
+        return wrap
+            ? Container(
+                color: theme.backgroudColor,
+                child: ExpandableButton(child: widget),
+              )
+            : widget;
       }
 
       if (!theme.hasIcon) {
